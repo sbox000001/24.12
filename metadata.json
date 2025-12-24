@@ -1,0 +1,7 @@
+{
+  "name": "Servis ELSINT DM - EA Assistant",
+  "description": "Napredni servisni asistent za dijagnostiku i popravku elektronike, pokretan veštačkom inteligencijom.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

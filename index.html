@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Servis ELSINT DM - Pametna Pomoć</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tech-blue: #2563eb;
+            --tech-cyan: #06b6d4;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #111827;
+            background-color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            color: #111827;
+        }
+        .tech-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at top right, #1d4ed8, #2563eb, #3b82f6);
+            position: relative;
+        }
+        /* Suptilna šema kola u pozadini */
+        .circuit-bg {
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            opacity: 0.05;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+        .btn-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        /* Animacija skeniranja */
+        .scan-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--tech-cyan), transparent);
+            position: absolute;
+            top: -2px;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .group:hover .scan-line {
+            opacity: 1;
+            animation: scan 1.5s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+        ::placeholder {
+            color: #9ca3af !important;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
+  }
+}
+</script>
+</head>
+<body class="min-h-screen">
+    <div id="root"></div>
+</body>
+</html>
