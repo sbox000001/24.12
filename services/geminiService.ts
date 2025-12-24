@@ -2,21 +2,22 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { DeviceType, DiagnosticSolution } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
-
 export const analyzeProblem = async (
   device: DeviceType, 
   description: string, 
   media?: { data: string, mimeType: string }
 ): Promise<DiagnosticSolution[]> => {
+  // Kreiramo novu instancu neposredno pre poziva kako bi uvek koristili najsvežiji ključ
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  
   try {
     const prompt = `Korisnik ima problem sa uređajem: ${device}. Opis problema: ${description}. 
     ${media ? "Korisnik je priložio i vizuelni dokaz (sliku/video) problema." : ""}
-    Generiši listu od 3 moguća rešenja ili koraka za dijagnostiku na srpskom jeziku.`;
+    Generiši listu od 3 moguća rešenja ili koraka za dijagnostiku na srpskom jeziku. Fokusiraj se na tehničku preciznost ELSINT DM servisa.`;
 
     const contents = media 
       ? { parts: [{ text: prompt }, { inlineData: media }] }
-      : prompt;
+      : { parts: [{ text: prompt }] };
 
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -47,10 +48,10 @@ export const analyzeProblem = async (
   } catch (error) {
     console.error("Gemini API Error:", error);
     return [{
-      title: "Greška u analizi",
-      description: "Trenutno nismo u mogućnosti da obradimo vaš zahtev putem AI asistenta. Molimo vas da nas kontaktirate direktno.",
+      title: "Sistemska Greška",
+      description: "Došlo je do prekida u komunikaciji sa AI jezgrom. Naš tehnički tim je obavešten.",
       difficulty: "Teško",
-      steps: ["Pozovite naš servis na +381 11 123 4567"]
+      steps: ["Kontaktirajte nas direktno na 0677627904", "Pošaljite upit na elsintdm@gmail.com"]
     }];
   }
 };
